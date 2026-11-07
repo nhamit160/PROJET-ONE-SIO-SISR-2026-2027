@@ -1,0 +1,19 @@
+enable
+configuration terminal
+
+vlan 10
+ name VLAN_Administration
+vlan 20
+ name VLAN_Users
+vlan 30
+ name VLAN_VoIP
+vlan 40
+ name VLAN_Servers
+vlan 50
+ name VLAN_Printers
+vlan 60
+ name VLAN_Wi-Fi_centrale
+vlan 70
+ name VLAN_Wi-Fi_guest
+vlan 99
+ name VLAN_DMZ
