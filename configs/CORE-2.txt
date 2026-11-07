@@ -1,0 +1,145 @@
+enable
+configure terminal
+
+! ============ GENERAL ============
+hostname CORE-2
+no ip domain-lookup
+ip domain-name frameaxis.lan
+ip routing
+service password-encryption
+enable secret <MotDePasseEnable>
+username admin privilege 15 secret <MotDePasseAdmin>
+banner motd #Acces reserve au personnel autorise de FrameAxis SAS - IBN#
+
+! ============ SSH ============
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+
+ip access-list standard ADMIN_SSH
+ permit 192.168.10.0 0.0.0.31
+ deny any
+exit
+
+line console 0
+ login local
+ logging synchronous
+ exec-timeout 10 0
+exit
+
+line vty 0 15
+ login local
+ transport input ssh
+ access-class ADMIN_SSH in
+ logging synchronous
+ exec-timeout 10 0
+exit
+
+! ============ VLAN ============
+vlan 10
+ name ADMINISTRATION
+vlan 20
+ name UTILISATEURS
+vlan 30
+ name VOIX
+vlan 40
+ name SERVEURS
+vlan 50
+ name IMPRIMANTES
+vlan 60
+ name WIFI_INTERNE
+vlan 70
+ name WIFI_INVITES
+vlan 100
+ name TRANSIT_ASA
+exit
+
+! ============ SPANNING TREE ============
+! CORE-2 root primaire sur 20,40,60 - secondaire sur 10,30,50,70,100
+spanning-tree mode rapid-pvst
+spanning-tree vlan 20,40,60 root primary
+spanning-tree vlan 10,30,50,70,100 root secondary
+
+! ============ SVI + HSRP ============
+! CORE-2 actif sur 20,40,60 - standby sur 10,30,50,70,100
+interface vlan 10
+ description GW ADMINISTRATION
+ ip address 192.168.10.29 255.255.255.224
+ standby version 2
+ standby 10 ip 192.168.10.30
+ standby 10 priority 100
+ standby 10 preempt
+ no shutdown
+
+interface vlan 20
+ description GW UTILISATEURS
+ ip address 192.168.20.253 255.255.255.0
+ standby version 2
+ standby 20 ip 192.168.20.254
+ standby 20 priority 110
+ standby 20 preempt
+ ip helper-address 192.168.40.10
+ no shutdown
+
+interface vlan 30
+ description GW VOIX
+ ip address 192.168.30.253 255.255.255.0
+ standby version 2
+ standby 30 ip 192.168.30.254
+ standby 30 priority 100
+ standby 30 preempt
+ ip helper-address 192.168.40.10
+ no shutdown
+
+interface vlan 40
+ description GW SERVEURS
+ ip address 192.168.40.61 255.255.255.192
+ standby version 2
+ standby 40 ip 192.168.40.62
+ standby 40 priority 110
+ standby 40 preempt
+ no shutdown
+
+interface vlan 50
+ description GW IMPRIMANTES
+ ip address 192.168.50.29 255.255.255.224
+ standby version 2
+ standby 50 ip 192.168.50.30
+ standby 50 priority 100
+ standby 50 preempt
+ no shutdown
+
+interface vlan 60
+ description GW WIFI_INTERNE
+ ip address 192.168.61.253 255.255.254.0
+ standby version 2
+ standby 60 ip 192.168.61.254
+ standby 60 priority 110
+ standby 60 preempt
+ ip helper-address 192.168.40.10
+ no shutdown
+
+interface vlan 70
+ description GW WIFI_INVITES
+ ip address 192.168.70.253 255.255.255.0
+ standby version 2
+ standby 70 ip 192.168.70.254
+ standby 70 priority 100
+ standby 70 preempt
+ ip helper-address 192.168.40.10
+ no shutdown
+
+interface vlan 100
+ description TRANSIT VERS ASA
+ ip address 192.168.100.5 255.255.255.248
+ standby version 2
+ standby 100 ip 192.168.100.6
+ standby 100 priority 100
+ standby 100 preempt
+ no shutdown
+exit
+
+! ============ ROUTAGE ============
+ip route 0.0.0.0 0.0.0.0 192.168.100.1
+
+end
+copy running-config startup-config
