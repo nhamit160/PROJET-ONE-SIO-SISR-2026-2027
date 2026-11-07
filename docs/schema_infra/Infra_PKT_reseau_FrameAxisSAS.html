@@ -1,0 +1,295 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Infra Centrale d'Achat</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout : plan de câblage — un grand schéma lisible, légende et justifications dessous */
+:root{
+  --bg:#eef1f4; --paper:#ffffff; --ink:#17212b; --muted:#5b6876; --rule:#cfd6de;
+  --zone:#f7f9fb; --zone-a:#eef3fd;
+  --fiber:#0b9ea1; --copper:#6d7d90; --wan:#9aa6b2;
+  --core:#2251c9; --access:#3f5873; --sec:#c2410c; --voice:#7a3dd6; --wifi:#13834d; --srv:#0e6f8f;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1319; --paper:#151c24; --ink:#e5ecf2; --muted:#98a6b4; --rule:#2b3642;
+  --zone:#18212b; --zone-a:#1a2436;
+  --fiber:#33cfd2; --copper:#8c9db1; --wan:#5f6d7b;
+  --core:#7299ff; --access:#9db2c8; --sec:#ff8a4c; --voice:#b292ff; --wifi:#3ccb83; --srv:#4cbbe0;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0e1319; --paper:#151c24; --ink:#e5ecf2; --muted:#98a6b4; --rule:#2b3642;
+  --zone:#18212b; --zone-a:#1a2436;
+  --fiber:#33cfd2; --copper:#8c9db1; --wan:#5f6d7b;
+  --core:#7299ff; --access:#9db2c8; --sec:#ff8a4c; --voice:#b292ff; --wifi:#3ccb83; --srv:#4cbbe0;
+  color-scheme:dark }
+
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:6px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(24px,3.4vw,34px);line-height:1.15;margin:0;font-weight:700;text-wrap:balance}
+.lede{margin:0;color:var(--muted);max-width:70ch}
+h2{font-size:18px;margin:0;font-weight:600;text-wrap:balance}
+
+.sheet{background:var(--paper);border:1px solid var(--rule);border-radius:6px}
+.diagram{overflow-x:auto;padding:12px}
+.diagram svg{display:block;width:100%;min-width:980px;height:auto}
+.caption{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid var(--rule);
+  padding:10px 16px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* SVG */
+svg text{font-family:var(--sans);fill:var(--ink)}
+.zone{fill:var(--zone);stroke:var(--rule);stroke-width:1.2}
+.zone-a{fill:var(--zone-a)}
+.room{fill:none;stroke:var(--srv);stroke-width:1.2;stroke-dasharray:6 4}
+.zlabel{font-size:15px;font-weight:700;letter-spacing:.02em}
+.zsub{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+.node rect{fill:var(--paper);stroke-width:1.6}
+.n-name{font-size:12.5px;font-weight:600;text-anchor:middle}
+.n-model{font-family:var(--mono);font-size:10.5px;fill:var(--muted);text-anchor:middle}
+.core rect{stroke:var(--core);stroke-width:2.4}
+.access rect{stroke:var(--access)}
+.sec rect{stroke:var(--sec)}
+.edge rect{stroke:var(--sec);stroke-dasharray:0}
+.isp rect{stroke:var(--wan);stroke-dasharray:4 3}
+.srv rect{stroke:var(--srv)}
+.voice rect{stroke:var(--voice)}
+.wifi rect{stroke:var(--wifi)}
+.chip rect{fill:var(--zone);stroke:var(--rule);stroke-width:1}
+.chip text{font-size:10.5px;text-anchor:middle;fill:var(--ink)}
+.l-fiber{stroke:var(--fiber);stroke-width:3;fill:none}
+.l-copper{stroke:var(--copper);stroke-width:1.6;fill:none}
+.l-wan{stroke:var(--wan);stroke-width:1.6;stroke-dasharray:5 4;fill:none}
+.l-po{stroke:var(--core);stroke-width:2;fill:none}
+.l-thin{stroke:var(--copper);stroke-width:1;fill:none}
+.tag{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+.tag-core{fill:var(--core);font-weight:500;paint-order:stroke;stroke:var(--zone-a);stroke-width:4px;stroke-linejoin:round}
+.tag-fiber{fill:var(--fiber);font-weight:500}
+.po{fill:var(--paper);stroke:var(--core);stroke-width:1.4}
+
+/* Légende + explications */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px}
+.panel{padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin:0;padding:0;list-style:none}
+.legend li{display:flex;align-items:center;gap:10px;font-size:13.5px}
+.sw{flex:0 0 34px;height:14px;display:inline-block}
+.why{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.why li{display:flex;flex-direction:column;gap:2px}
+.why strong{font-weight:600}
+.why span{color:var(--muted);font-size:14px;max-width:68ch}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--rule)}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td:first-child{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{font-size:13px;color:var(--muted);margin:0}
+.parties{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:4px}
+.parties b{font-family:var(--sans);font-weight:600;color:var(--ink);margin-right:6px}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:1px 7px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.p1{color:var(--core)}
+.p2{color:var(--fiber)}
+td.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Projet One · IBN pour FrameAxis SAS · Maquette Cisco Packet Tracer</span>
+    <h1>Infrastructure réseau de FrameAxis SAS</h1>
+    <p class="lede">Trois bâtiments en étoile autour du bâtiment A, qui héberge la salle serveur, l'IPBX et la sortie Internet. Chaque switch d'accès est relié aux deux switchs de cœur, et la charge HSRP est répartie entre CORE-1 et CORE-2.</p>
+    <div class="parties"><span><b>Prestataire</b> IBN</span><span><b>Client</b> FrameAxis SAS</span><span><b>Domaine</b> frameaxis.lan</span></div>
+  </header>
+
+  <section class="sheet" aria-label="Schéma de l'infrastructure">
+    <div class="diagram">
+<svg viewBox="0 0 1200 790" role="img" aria-labelledby="svgt">
+<title id="svgt">Schéma réseau : deux FAI, deux routeurs ISR4331, un pare-feu ASA, deux switchs de cœur 3650 dans le bâtiment A, switchs d'accès 3560 dans les bâtiments A, B et C reliés en fibre aux deux cœurs, et une salle serveur avec switch 2960, serveurs, IPBX 2811 et contrôleur Wi-Fi.</title>
+
+<!-- ===== Zones ===== -->
+<rect class="zone" x="20" y="290" width="250" height="445" rx="6"/>
+<text class="zlabel" x="36" y="314">Bâtiment B</text>
+<text class="zsub" x="36" y="330">LT B · ~40 postes</text>
+
+<rect class="zone" x="930" y="290" width="250" height="445" rx="6"/>
+<text class="zlabel" x="946" y="314">Bâtiment C</text>
+<text class="zsub" x="946" y="330">LT C · ~40 postes</text>
+
+<rect class="zone zone-a" x="290" y="290" width="620" height="445" rx="6"/>
+<text class="zlabel" x="304" y="314">Bâtiment A</text>
+<text class="zsub" x="304" y="330">Cœur · ~40 postes</text>
+
+<rect class="room" x="310" y="548" width="580" height="172" rx="4"/>
+<text class="zsub" x="322" y="566" style="fill:var(--srv)">SALLE SERVEUR</text>
+
+<text class="zsub" x="40" y="30">ZONE INTERNET</text>
+
+<!-- ===== Liens WAN / bordure ===== -->
+<line class="l-wan" x1="440" y1="72" x2="440" y2="116"/>
+<line class="l-wan" x1="760" y1="72" x2="760" y2="116"/>
+<line class="l-copper" x1="470" y1="164" x2="560" y2="204"/>
+<line class="l-copper" x1="730" y1="164" x2="640" y2="204"/>
+<line class="l-copper" x1="685" y1="230" x2="785" y2="230"/>
+<text class="tag" x="692" y="222">VLAN 99 · /28</text>
+<line class="l-copper" x1="570" y1="256" x2="500" y2="302"/>
+<line class="l-copper" x1="630" y1="256" x2="700" y2="302"/>
+<text class="tag" x="600" y="280" text-anchor="middle">VLAN 100 · .100.0/29</text>
+
+<!-- ===== Fibre bâtiment B -> cœurs ===== -->
+<line class="l-fiber" x1="245" y1="375" x2="385" y2="322"/>
+<line class="l-fiber" x1="245" y1="478" x2="385" y2="345"/>
+<path class="l-fiber" d="M245,388 Q472,417 690,358"/>
+<path class="l-fiber" d="M245,488 Q487,387 700,358"/>
+<!-- ===== Fibre bâtiment C -> cœurs ===== -->
+<line class="l-fiber" x1="955" y1="375" x2="815" y2="322"/>
+<line class="l-fiber" x1="955" y1="478" x2="815" y2="345"/>
+<path class="l-fiber" d="M955,388 Q728,417 510,358"/>
+<path class="l-fiber" d="M955,488 Q713,387 500,358"/>
+<text class="tag tag-fiber" x="262" y="356">OM4 ×2 · LACP</text>
+<text class="tag tag-fiber" x="938" y="356" text-anchor="end">OM4 ×2 · LACP</text>
+
+<!-- ===== Accès A -> cœurs (cuivre, même bâtiment) ===== -->
+<line class="l-copper" x1="470" y1="446" x2="470" y2="358"/>
+<line class="l-copper" x1="510" y1="446" x2="690" y2="358"/>
+<line class="l-copper" x1="730" y1="446" x2="730" y2="358"/>
+<line class="l-copper" x1="690" y1="446" x2="510" y2="358"/>
+
+<!-- ===== Salle serveur -> cœurs ===== -->
+<line class="l-copper" x1="575" y1="566" x2="530" y2="358"/>
+<line class="l-copper" x1="625" y1="566" x2="670" y2="358"/>
+<line class="l-copper" x1="560" y1="614" x2="410" y2="649"/>
+<line class="l-copper" x1="600" y1="614" x2="600" y2="649"/>
+<line class="l-copper" x1="640" y1="614" x2="790" y2="649"/>
+
+<!-- ===== EtherChannel inter-cœur ===== -->
+<line class="l-po" x1="555" y1="324" x2="645" y2="324"/>
+<line class="l-po" x1="555" y1="336" x2="645" y2="336"/>
+<ellipse class="po" cx="600" cy="330" rx="22" ry="11"/>
+<text class="tag tag-core" x="600" y="334" text-anchor="middle">Po1</text>
+<text class="tag tag-core" x="600" y="298" text-anchor="middle">HSRP · VIP .6</text>
+
+<!-- ===== Terminaux bât B ===== -->
+<line class="l-thin" x1="145" y1="512" x2="95" y2="573"/>
+<line class="l-thin" x1="145" y1="512" x2="195" y2="573"/>
+<line class="l-thin" x1="145" y1="512" x2="95" y2="633"/>
+<line class="l-thin" x1="145" y1="512" x2="195" y2="633"/>
+<g class="chip"><rect x="50" y="573" width="90" height="32" rx="3"/><text x="95" y="593">PC · VLAN 20</text></g>
+<g class="chip"><rect x="150" y="573" width="90" height="32" rx="3"/><text x="195" y="593">IP Phone 7960</text></g>
+<g class="chip"><rect x="50" y="633" width="90" height="32" rx="3"/><text x="95" y="653">LAP (Wi-Fi)</text></g>
+<g class="chip"><rect x="150" y="633" width="90" height="32" rx="3"/><text x="195" y="653">Imprimante</text></g>
+<text class="zsub" x="145" y="700" text-anchor="middle">PoE+ pour téléphones et bornes</text>
+
+<!-- ===== Terminaux bât C ===== -->
+<line class="l-thin" x1="1055" y1="512" x2="1005" y2="573"/>
+<line class="l-thin" x1="1055" y1="512" x2="1105" y2="573"/>
+<line class="l-thin" x1="1055" y1="512" x2="1005" y2="633"/>
+<line class="l-thin" x1="1055" y1="512" x2="1105" y2="633"/>
+<g class="chip"><rect x="960" y="573" width="90" height="32" rx="3"/><text x="1005" y="593">PC · VLAN 20</text></g>
+<g class="chip"><rect x="1060" y="573" width="90" height="32" rx="3"/><text x="1105" y="593">IP Phone 7960</text></g>
+<g class="chip"><rect x="960" y="633" width="90" height="32" rx="3"/><text x="1005" y="653">LAP (Wi-Fi)</text></g>
+<g class="chip"><rect x="1060" y="633" width="90" height="32" rx="3"/><text x="1105" y="653">Imprimante</text></g>
+<text class="zsub" x="1055" y="700" text-anchor="middle">PoE+ pour téléphones et bornes</text>
+
+<!-- ===== Terminaux bât A ===== -->
+<line class="l-thin" x1="455" y1="494" x2="432" y2="508"/>
+<line class="l-thin" x1="485" y1="494" x2="508" y2="508"/>
+<line class="l-thin" x1="715" y1="494" x2="692" y2="508"/>
+<line class="l-thin" x1="745" y1="494" x2="768" y2="508"/>
+<g class="chip"><rect x="400" y="508" width="66" height="26" rx="3"/><text x="433" y="525">PC</text></g>
+<g class="chip"><rect x="474" y="508" width="66" height="26" rx="3"/><text x="507" y="525">IP Phone</text></g>
+<g class="chip"><rect x="660" y="508" width="66" height="26" rx="3"/><text x="693" y="525">LAP</text></g>
+<g class="chip"><rect x="734" y="508" width="70" height="26" rx="3"/><text x="769" y="525">Imprimante</text></g>
+
+<!-- ===== Nœuds Internet ===== -->
+<g class="node isp"><rect x="370" y="28" width="140" height="44" rx="22"/><text class="n-name" x="440" y="47">FAI 1</text><text class="n-model" x="440" y="62">Router 2911 / Cloud</text></g>
+<g class="node isp"><rect x="690" y="28" width="140" height="44" rx="22"/><text class="n-name" x="760" y="47">FAI 2</text><text class="n-model" x="760" y="62">Router 2911 / Cloud</text></g>
+<g class="node edge"><rect x="365" y="116" width="150" height="48" rx="4"/><text class="n-name" x="440" y="136">R-EDGE-1</text><text class="n-model" x="440" y="152">ISR4331</text></g>
+<g class="node edge"><rect x="685" y="116" width="150" height="48" rx="4"/><text class="n-name" x="760" y="136">R-EDGE-2</text><text class="n-model" x="760" y="152">ISR4331</text></g>
+<g class="node sec"><rect x="515" y="204" width="170" height="52" rx="4"/><text class="n-name" x="600" y="226">FW-ASA</text><text class="n-model" x="600" y="243">ASA 5506-X · NAT/ACL</text></g>
+<g class="node srv"><rect x="785" y="208" width="130" height="44" rx="4"/><text class="n-name" x="850" y="226">SRV-WEB</text><text class="n-model" x="850" y="242">Server-PT · DMZ</text></g>
+
+<!-- ===== Cœur ===== -->
+<g class="node core"><rect x="385" y="302" width="170" height="56" rx="4"/><text class="n-name" x="470" y="326">CORE-1</text><text class="n-model" x="470" y="344">3650-24PS · L3</text></g>
+<g class="node core"><rect x="645" y="302" width="170" height="56" rx="4"/><text class="n-name" x="730" y="326">CORE-2</text><text class="n-model" x="730" y="344">3650-24PS · L3</text></g>
+<text class="tag tag-core" x="440" y="372" text-anchor="middle">actif 10·30·50·70·100</text>
+<text class="tag tag-core" x="760" y="372" text-anchor="middle">actif 20·40·60</text>
+
+<!-- ===== Accès ===== -->
+<g class="node access"><rect x="400" y="446" width="140" height="48" rx="4"/><text class="n-name" x="470" y="466">ASW-A1</text><text class="n-model" x="470" y="482">3560-24PS</text></g>
+<g class="node access"><rect x="660" y="446" width="140" height="48" rx="4"/><text class="n-name" x="730" y="466">ASW-A2</text><text class="n-model" x="730" y="482">3560-24PS</text></g>
+<g class="node access"><rect x="45" y="356" width="200" height="48" rx="4"/><text class="n-name" x="145" y="376">ASW-B1</text><text class="n-model" x="145" y="392">3560-24PS</text></g>
+<g class="node access"><rect x="45" y="464" width="200" height="48" rx="4"/><text class="n-name" x="145" y="484">ASW-B2</text><text class="n-model" x="145" y="500">3560-24PS</text></g>
+<g class="node access"><rect x="955" y="356" width="200" height="48" rx="4"/><text class="n-name" x="1055" y="376">ASW-C1</text><text class="n-model" x="1055" y="392">3560-24PS</text></g>
+<g class="node access"><rect x="955" y="464" width="200" height="48" rx="4"/><text class="n-name" x="1055" y="484">ASW-C2</text><text class="n-model" x="1055" y="500">3560-24PS</text></g>
+
+<!-- ===== Salle serveur ===== -->
+<g class="node srv"><rect x="515" y="566" width="170" height="48" rx="4"/><text class="n-name" x="600" y="586">SW-SRV</text><text class="n-model" x="600" y="602">2960-24TT · VLAN 40</text></g>
+<g class="node srv"><rect x="320" y="649" width="180" height="56" rx="4"/><text class="n-name" x="410" y="671">Serveurs ×4</text><text class="n-model" x="410" y="688">DHCP .40.10 · DNS · AAA</text></g>
+<g class="node voice"><rect x="525" y="649" width="150" height="56" rx="4"/><text class="n-name" x="600" y="671">IPBX (autocom)</text><text class="n-model" x="600" y="688">Router 2811 · CME</text></g>
+<g class="node wifi"><rect x="715" y="649" width="150" height="56" rx="4"/><text class="n-name" x="790" y="671">Contrôleur Wi-Fi</text><text class="n-model" x="790" y="688">WLC-3504</text></g>
+</svg>
+    </div>
+    <div class="caption"><span>Vue logique simplifiée · 1 terminal représente un groupe d'environ 40 postes</span><span>Fibre OM4 = gaine aqua, comme en vrai</span></div>
+  </section>
+
+  <section class="sheet panel" aria-label="Légende">
+    <h2>Légende</h2>
+    <ul class="legend">
+      <li><svg class="sw" viewBox="0 0 34 14"><line x1="0" y1="7" x2="34" y2="7" class="l-fiber"/></svg>Fibre inter-bâtiments (OM4)</li>
+      <li><svg class="sw" viewBox="0 0 34 14"><line x1="0" y1="7" x2="34" y2="7" class="l-copper"/></svg>Cuivre Cat 6 / 6A</li>
+      <li><svg class="sw" viewBox="0 0 34 14"><line x1="0" y1="4" x2="34" y2="4" class="l-po"/><line x1="0" y1="10" x2="34" y2="10" class="l-po"/></svg>EtherChannel inter-cœur</li>
+      <li><svg class="sw" viewBox="0 0 34 14"><line x1="0" y1="7" x2="34" y2="7" class="l-wan"/></svg>Lien opérateur (WAN)</li>
+      <li><span class="dot" style="background:var(--core)"></span>Cœur L3</li>
+      <li><span class="dot" style="background:var(--access)"></span>Accès (L2, PoE+)</li>
+      <li><span class="dot" style="background:var(--sec)"></span>Bordure et sécurité</li>
+      <li><span class="dot" style="background:var(--srv)"></span>Serveurs</li>
+      <li><span class="dot" style="background:var(--voice)"></span>Téléphonie IP</li>
+      <li><span class="dot" style="background:var(--wifi)"></span>Wi-Fi</li>
+    </ul>
+  </section>
+
+  <div class="grid">
+    <section class="sheet panel" aria-label="Justification des choix">
+      <h2>Pourquoi ce dessin</h2>
+      <ul class="why">
+        <li><strong>Chaque switch d'accès a deux fibres, une par cœur.</strong><span>Si CORE-1 tombe ou qu'une fibre est coupée, le bâtiment reste connecté par CORE-2. C'est l'intérêt de doubler les cœurs.</span></li>
+        <li><strong>HSRP : une passerelle virtuelle par VLAN.</strong><span>La VIP est toujours la dernière adresse utilisable du réseau, et les deux cœurs prennent les deux adresses juste avant. Si le cœur actif tombe, l'autre reprend la VIP sans que les postes ne s'en aperçoivent.</span></li>
+        <li><strong>Charge répartie entre les deux cœurs.</strong><span>CORE-1 est actif sur 10, 30, 50, 70 et 100, CORE-2 sur 20, 40 et 60. Sans ce partage, un cœur resterait inutilisé en dehors des pannes.</span></li>
+        <li><strong>Root bridge aligné sur HSRP.</strong><span>Pour chaque VLAN, le cœur actif est aussi la racine Rapid-PVST. Sinon, le trafic monterait vers un cœur puis traverserait Po1 pour rejoindre l'autre.</span></li>
+        <li><strong>Masques ajustés au besoin (VLSM).</strong><span>Chaque masque couvre les hôtes actuels, 30 % de croissance et les 3 adresses HSRP. Le troisième octet reste égal au numéro de VLAN pour la lisibilité.</span></li>
+        <li><strong>Administration des cœurs en SSH, depuis le VLAN 10 uniquement.</strong><span>Une ACL sur les lignes VTY refuse toute connexion venant d'un autre VLAN. Un poste utilisateur ne peut pas atteindre l'interface d'administration d'un cœur.</span></li>
+        <li><strong>Fibre entre bâtiments, cuivre à l'intérieur de A.</strong><span>Le cuivre est limité à 100 m et relie des terres électriques différentes. Dans un même bâtiment, ce problème n'existe pas.</span></li>
+        <li><strong>Serveurs, IPBX et WLC derrière un switch dédié.</strong><span>Ils sont regroupés dans le VLAN serveurs, isolés des utilisateurs et filtrés par ACL sur les cœurs.</span></li>
+        <li><strong>Deux FAI, deux routeurs, un ASA.</strong><span>Plus de point unique côté opérateur. Dans PT, l'ASA ne fait pas de failover, donc il est seul sur la maquette ; en production, il en faudrait deux.</span></li>
+      </ul>
+    </section>
+
+  </div>
+
+  <section class="sheet panel" aria-label="Plan d'adressage">
+    <h2>Plan d'adressage et HSRP</h2>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>VLAN</th><th>Nom</th><th>Réseau</th><th>Passerelle (VIP)</th><th>CORE-1</th><th>CORE-2</th><th>Actif</th><th>DHCP</th></tr></thead>
+      <tbody>
+        <tr><td>10</td><td>ADMINISTRATION</td><td class="mono">192.168.10.0/27</td><td class="mono"><b>.30</b></td><td class="mono">.28</td><td class="mono">.29</td><td><span class="pill p1">CORE-1</span></td><td>IP fixes</td></tr>
+        <tr><td>20</td><td>UTILISATEURS</td><td class="mono">192.168.20.0/24</td><td class="mono"><b>.254</b></td><td class="mono">.252</td><td class="mono">.253</td><td><span class="pill p2">CORE-2</span></td><td>Relais</td></tr>
+        <tr><td>30</td><td>VOIX</td><td class="mono">192.168.30.0/24</td><td class="mono"><b>.254</b></td><td class="mono">.252</td><td class="mono">.253</td><td><span class="pill p1">CORE-1</span></td><td>Relais</td></tr>
+        <tr><td>40</td><td>SERVEURS</td><td class="mono">192.168.40.0/26</td><td class="mono"><b>.62</b></td><td class="mono">.60</td><td class="mono">.61</td><td><span class="pill p2">CORE-2</span></td><td>IP fixes</td></tr>
+        <tr><td>50</td><td>IMPRIMANTES</td><td class="mono">192.168.50.0/27</td><td class="mono"><b>.30</b></td><td class="mono">.28</td><td class="mono">.29</td><td><span class="pill p1">CORE-1</span></td><td>IP fixes</td></tr>
+        <tr><td>60</td><td>WIFI_INTERNE</td><td class="mono">192.168.60.0/23</td><td class="mono"><b>61.254</b></td><td class="mono">61.252</td><td class="mono">61.253</td><td><span class="pill p2">CORE-2</span></td><td>Relais</td></tr>
+        <tr><td>70</td><td>WIFI_INVITES</td><td class="mono">192.168.70.0/24</td><td class="mono"><b>.254</b></td><td class="mono">.252</td><td class="mono">.253</td><td><span class="pill p1">CORE-1</span></td><td>Relais</td></tr>
+        <tr><td>100</td><td>TRANSIT_ASA</td><td class="mono">192.168.100.0/29</td><td class="mono"><b>.6</b></td><td class="mono">.4</td><td class="mono">.5</td><td><span class="pill p1">CORE-1</span></td><td>ASA en .1</td></tr>
+        <tr><td>99</td><td>DMZ</td><td class="mono">192.168.99.0/28</td><td class="mono"><b>.14</b> (ASA)</td><td class="mono">—</td><td class="mono">—</td><td>ASA seul</td><td>IP fixes</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Le relais DHCP pointe vers 192.168.40.10. Les cœurs ont une route par défaut vers l'ASA (192.168.100.1), qui renvoie le trafic interne vers la VIP 192.168.100.6. Le VLAN 99 n'existe que côté pare-feu et n'est jamais créé sur les cœurs. Le VLAN 60 en /23 occupe aussi 192.168.61.x : aucun VLAN 61 ne doit exister.</p>
+  </section>
+</div>
+
+</body></html>
