@@ -1,6 +1,6 @@
-# Projet One — Infrastructure IT d'une centrale d'achat
+# Projet One — Infrastructure IT de FrameAxis SAS
 
-> Projet BTS SIO option SISR — conception complète de l'infrastructure informatique d'une entreprise répartie sur trois bâtiments, avec comparaison de solutions, maquette Cisco Packet Tracer et prise en compte des contraintes économiques, techniques, architecturales, réglementaires (RGPD, NIS2) et cyber.
+> Projet BTS SIO option SISR — **IBN**, prestataire informatique, conçoit l'infrastructure complète de son client **FrameAxis SAS**, une centrale d'achat répartie sur trois bâtiments. Le projet comprend la comparaison de solutions, une maquette Cisco Packet Tracer et la prise en compte des contraintes économiques, techniques, architecturales, réglementaires (RGPD, NIS2) et cyber.
 
 ---
 
@@ -24,6 +24,17 @@
 
 ## 1. Contexte
 
+### Les acteurs
+
+| Rôle | Société | Responsabilité |
+|---|---|---|
+| Prestataire | **IBN** | Conception, maquettage, chiffrage et déploiement de l'infrastructure |
+| Client | **FrameAxis SAS** | Expression du besoin, validation des choix, exploitation de l'infrastructure livrée |
+
+**Pourquoi distinguer les deux rôles :** chaque livrable (comparatifs, schémas, chiffrage) est rédigé par IBN pour être présenté et validé par FrameAxis SAS. Cela fixe le ton du dossier : une proposition argumentée à un client, pas une simple réalisation technique.
+
+### Le site de FrameAxis SAS
+
 | Élément | Valeur |
 |---|---|
 | Type d'entreprise | Centrale d'achat |
@@ -40,7 +51,7 @@
 
 ## 2. Objectifs du projet
 
-- Concevoir une infrastructure **réseau et systèmes** complète, sécurisée et évolutive.
+- Concevoir pour FrameAxis SAS une infrastructure **réseau et systèmes** complète, sécurisée et évolutive.
 - Pour chaque brique technique, **comparer au minimum 3 solutions** sur plusieurs critères, puis justifier le choix retenu.
 - Prendre en compte les dimensions :
   - **techniques** (performances, compatibilité, maintenabilité) ;
