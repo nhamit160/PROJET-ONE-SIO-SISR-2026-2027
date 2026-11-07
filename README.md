@@ -278,7 +278,7 @@ Même sans obligation, les mesures NIS2 servent de **référentiel de bonnes pra
 ## 12. Organisation du dépôt
 
 ```
-projet-one/
+PROJET-ONE-SIO-SISR-2026-2027/
 ├── README.md
 ├── docs/
 │   ├── cahier-des-charges.md
@@ -286,7 +286,7 @@ projet-one/
 │   ├── schemas/              # schémas réseau (HTML, PNG, PDF)
 │   └── conformite/           # analyses RGPD et NIS2
 ├── packet-tracer/
-│   └── infra-centrale-achat.pkt
+│   └── FrameAxis_SAS_infra.pkt
 └── configs/                  # configurations exportées par équipement
     ├── CORE-1.txt
     ├── CORE-2.txt
