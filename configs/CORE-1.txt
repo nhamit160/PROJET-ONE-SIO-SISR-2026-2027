@@ -7,8 +7,8 @@ no ip domain-lookup
 ip domain-name frameaxis.lan
 ip routing
 service password-encryption
-enable secret <MotDePasseEnable>
-username admin privilege 15 secret <MotDePasseAdmin>
+enable secret EnableConfIBN
+username admin privilege 15 secret MDPAdminCORE1
 banner motd #Acces reserve au personnel autorise de FrameAxis SAS - IBN#
 
 ! ============ SSH ============

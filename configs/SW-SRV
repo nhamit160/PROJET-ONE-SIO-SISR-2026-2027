@@ -1,0 +1,133 @@
+enable
+configure terminal
+
+! ============ GENERAL ============
+hostname SW-SRV
+no ip domain-lookup
+ip domain-name frameaxis.lan
+service password-encryption
+enable secret EnableConfIBN
+username admin privilege 15 secret MDPAdminSwSrv
+banner motd #Acces reserve au personnel autorise de FrameAxis SAS - IBN#
+
+! ============ SSH ============
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+
+ip access-list standard ADMIN_SSH
+ permit 192.168.10.0 0.0.0.31
+ deny any
+exit
+
+line console 0
+ login local
+ logging synchronous
+ exec-timeout 10 0
+exit
+
+line vty 0 15
+ login local
+ transport input ssh
+ access-class ADMIN_SSH in
+ logging synchronous
+ exec-timeout 10 0
+exit
+
+! ============ VLAN ============
+vlan 10
+ name ADMINISTRATION
+vlan 40
+ name SERVEURS
+vlan 60
+ name WIFI_INTERNE
+vlan 70
+ name WIFI_INVITES
+vlan 999
+ name PARKING
+exit
+
+! ============ SPANNING TREE ============
+spanning-tree mode rapid-pvst
+
+! ============ UPLINKS VERS LES COEURS ============
+interface GigabitEthernet0/1
+ description UPLINK CORE-1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,40,60,70
+ switchport nonegotiate
+ no shutdown
+
+interface GigabitEthernet0/2
+ description UPLINK CORE-2
+ switchport mode trunk
+ switchport trunk allowed vlan 10,40,60,70
+ switchport nonegotiate
+ no shutdown
+
+! ============ SERVEURS ET IPBX ============
+interface FastEthernet0/1
+ description SRV-DHCP
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+
+interface FastEthernet0/2
+ description SRV-DNS
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+
+interface FastEthernet0/3
+ description SRV-AAA
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+
+interface FastEthernet0/4
+ description SRV-SYSLOG-NTP
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+
+interface FastEthernet0/5
+ description IPBX CME
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+
+! ============ CONTROLEUR WI-FI ============
+interface FastEthernet0/6
+ description WLC-3504
+ switchport mode trunk
+ switchport trunk allowed vlan 10,60,70
+ switchport nonegotiate
+ no shutdown
+
+! ============ PORTS LIBRES ============
+interface range FastEthernet0/7 - 24
+ description PORT LIBRE
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+exit
+
+! ============ GESTION ============
+interface vlan 10
+ description GESTION SW-SRV
+ ip address 192.168.10.7 255.255.255.224
+ no shutdown
+exit
+ip default-gateway 192.168.10.30
+
+end
+copy running-config startup-config
