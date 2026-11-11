@@ -1,0 +1,30 @@
+enable
+configure terminal
+hostname IPBX
+
+interface FastEthernet0/0
+ description VERS SW-SRV - VLAN 40
+ ip address 192.168.40.5 255.255.255.192
+ no shutdown
+exit
+ip route 0.0.0.0 0.0.0.0 192.168.40.62
+
+telephony-service
+ max-ephones 20
+ max-dn 20
+ ip source-address 192.168.40.5 port 2000
+ auto assign 1 to 20
+exit
+
+ephone-dn 1
+ number 1001
+ephone-dn 2
+ number 1002
+ephone-dn 3
+ number 2001
+ephone-dn 4
+ number 3001
+exit
+
+end
+copy running-config startup-config

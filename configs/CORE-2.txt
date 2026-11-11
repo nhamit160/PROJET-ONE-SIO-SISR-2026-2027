@@ -138,6 +138,32 @@ interface vlan 100
  no shutdown
 exit
 
+! ============ INTERFACES PHYSIQUES ============
+! Lien inter-coeur : Gi1/0/23-24 agreges en Po1 (LACP)
+interface range GigabitEthernet1/0/23 - 24
+ description LIEN INTER-COEUR Po1
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode active
+ no shutdown
+exit
+
+interface Port-channel1
+ description LIEN INTER-COEUR
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60,70,100
+ switchport nonegotiate
+exit
+
+! Downlink vers la salle serveur
+interface GigabitEthernet1/0/22
+ description DOWNLINK SW-SRV
+ switchport mode trunk
+ switchport trunk allowed vlan 10,40,60,70
+ switchport nonegotiate
+ no shutdown
+exit
+
 ! ============ ROUTAGE ============
 ip route 0.0.0.0 0.0.0.0 192.168.100.1
 
