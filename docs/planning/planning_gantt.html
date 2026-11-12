@@ -93,6 +93,16 @@
     .back:hover { text-decoration: underline; }
     @media print { .back { display: none; } }
 
+    .ms {
+        width: 12px;
+        height: 12px;
+        margin: 0 auto;
+        background-color: #1a365d;
+        transform: rotate(45deg);
+    }
+    .milestone td { background-color: #f8fafc; font-weight: 700; color: #1a365d; }
+    .legend-ms { font-size: 8pt; color: #64748b; margin-top: 8px; }
+
     .team-box {
         margin-top: 20px;
         padding: 12px 16px;
@@ -152,7 +162,7 @@
         <tbody>
             <!-- Cadrage -->
             <tr>
-                <td class="col-phase" rowspan="3">Cadrage</td>
+                <td class="col-phase" rowspan="4">Cadrage</td>
                 <td>Lancement, objectifs et périmètre</td>
                 <td class="col-resp">Bruno N'KOMBO • Nils HAMITOUCHE</td>
                 <td><div class="bar cadrage"></div></td>
@@ -170,6 +180,12 @@
                 <td><div class="bar cadrage"></div></td>
                 <td><div class="bar cadrage"></div></td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+
+            <tr class="milestone">
+                <td>◆ Jalon : validation du cahier des charges par FA SAS</td>
+                <td class="col-resp">Linus TORVALDS (FA SAS) • Bruno N'KOMBO • Nils HAMITOUCHE</td>
+                <td><div class="ms" title="Jalon"></div></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
 
             <!-- Conception -->
@@ -208,19 +224,16 @@
             </tr>
             <tr>
                 <td>DNS/DHCP, IPBX et supervision</td>
-                <td class="col-resp">Lithicia METHARI • Lyana RAMANANARIVO • Idir SAID LHADJ</td>
+                <td class="col-resp">Lithicia METAHRI • Lyana RAMANANARIVO • Idir SAID LHADJ</td>
                 <td></td><td></td>
                 <td><div class="bar conception"></div></td>
                 <td><div class="bar conception"></div></td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
             <tr>
-                <td>Schémas physique/logique et préparation DAT</td>
+                <td>Schémas physique/logique et rédaction du DAT</td>
                 <td class="col-resp">Gabriel KOUASSI • Nils HAMITOUCHE • Lyana RAMANANARIVO</td>
-                <td></td><td></td>
-                <td><div class="bar conception"></div></td>
-                <td><div class="bar conception"></div></td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td><div class="bar conception"></div></td><td><div class="bar conception"></div></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
 
             <!-- Approvisionnement -->
@@ -228,17 +241,12 @@
                 <td class="col-phase" rowspan="2">Approvisionnement</td>
                 <td>Validation des références et choix matériel</td>
                 <td class="col-resp">Bruno N'KOMBO • Nils HAMITOUCHE • Idir SAID LHADJ</td>
-                <td></td><td></td><td></td>
-                <td><div class="bar approv"></div></td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td><div class="bar approv"></div></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
             <tr>
                 <td>Devis, commandes et suivi des livraisons</td>
                 <td class="col-resp">Bruno N'KOMBO • équipe IBN</td>
-                <td></td><td></td><td></td>
-                <td><div class="bar approv"></div></td>
-                <td><div class="bar approv"></div></td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td><div class="bar approv"></div></td><td><div class="bar approv"></div></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
 
             <!-- Préparation -->
@@ -302,7 +310,7 @@
             </tr>
             <tr>
                 <td>Wi-Fi interne/invité et isolation</td>
-                <td class="col-resp">Nils HAMITOUCHE • Lithicia METHARI • Lyana RAMANANARIVO</td>
+                <td class="col-resp">Nils HAMITOUCHE • Lithicia METAHRI • Lyana RAMANANARIVO</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td><div class="bar deploy"></div></td>
                 <td><div class="bar deploy"></div></td>
@@ -310,7 +318,7 @@
             </tr>
             <tr>
                 <td>AD, DNS, DHCP, fichiers et virtualisation</td>
-                <td class="col-resp">Idir SAID LHADJ • Lithicia METHARI • Bruno N'KOMBO</td>
+                <td class="col-resp">Idir SAID LHADJ • Lithicia METAHRI • Bruno N'KOMBO</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td><div class="bar deploy"></div></td>
                 <td><div class="bar deploy"></div></td>
@@ -321,14 +329,14 @@
             <tr>
                 <td class="col-phase" rowspan="2">Migration</td>
                 <td>IPBX et supervision centralisée</td>
-                <td class="col-resp">Lithicia METHARI • Lyana RAMANANARIVO • Idir SAID LHADJ</td>
+                <td class="col-resp">Lithicia METAHRI • Lyana RAMANANARIVO • Idir SAID LHADJ</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td><div class="bar migr"></div></td>
                 <td></td><td></td><td></td>
             </tr>
             <tr>
                 <td>Migration des services et raccordement utilisateurs</td>
-                <td class="col-resp">Nils HAMITOUCHE • Lithicia METHARI</td>
+                <td class="col-resp">Nils HAMITOUCHE • Lithicia METAHRI</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td><div class="bar migr"></div></td>
                 <td></td><td></td>
@@ -336,36 +344,38 @@
 
             <!-- Recette -->
             <tr>
-                <td class="col-phase" rowspan="3">Recette</td>
+                <td class="col-phase" rowspan="4">Recette</td>
                 <td>Tests DHCP, DNS, inter-VLAN et Wi-Fi invité</td>
-                <td class="col-resp">Gabriel KOUASSI • Lithicia METHARI • Lyana RAMANANARIVO</td>
+                <td class="col-resp">Gabriel KOUASSI • Lithicia METAHRI • Lyana RAMANANARIVO</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td><div class="bar recette"></div></td>
                 <td></td><td></td>
             </tr>
             <tr>
-                <td>Tests HSRP, FortiGate HA, FAI et fibre</td>
+                <td>Tests HSRP, FortiGate HA, FAI et fibre (hors heures ouvrées)</td>
                 <td class="col-resp">Nils HAMITOUCHE • Gabriel KOUASSI</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td><div class="bar recette"></div></td>
-                <td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><div class="bar recette"></div></td><td></td><td></td>
             </tr>
             <tr>
                 <td>Tests VPN, SSH, sauvegarde et supervision</td>
-                <td class="col-resp">Gabriel KOUASSI • Nils HAMITOUCHE • Idir SAID LHADJ • Lithicia METHARI</td>
+                <td class="col-resp">Gabriel KOUASSI • Nils HAMITOUCHE • Idir SAID LHADJ • Lithicia METAHRI</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td><div class="bar recette"></div></td>
                 <td></td>
             </tr>
 
+            <tr class="milestone">
+                <td>◆ Jalon : signature du PV de recette</td>
+                <td class="col-resp">Linus TORVALDS (FA SAS) • Gabriel KOUASSI • Lyana RAMANANARIVO</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><div class="ms" title="Jalon"></div></td><td></td>
+            </tr>
+
             <!-- Transfert -->
             <tr>
                 <td class="col-phase" rowspan="3">Transfert</td>
-                <td>DAT, schémas, inventaire et configurations</td>
+                <td>DAT final (conforme à l'installé), inventaire et configurations</td>
                 <td class="col-resp">Gabriel KOUASSI • équipe IBN</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td><div class="bar transfert"></div></td>
-                <td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><div class="bar transfert"></div></td><td></td>
             </tr>
             <tr>
                 <td>Dossier d'exploitation et procédures</td>
@@ -382,11 +392,12 @@
             </tr>
         </tbody>
     </table>
+    <div class="legend-ms">◆ Jalon : point de validation par le client, la phase suivante ne démarre qu'après signature.</div>
 
     <div class="team-box">
         <div class="team-title">ÉQUIPE DE PROJET IBN :</div>
         <div class="team-members">
-            <strong>Nils HAMITOUCHE</strong> • <strong>Bruno N'KOMBO</strong> • <strong>Lithicia METHARI</strong> • <strong>Lyana RAMANANARIVO</strong> • <strong>Idir SAID LHADJ</strong> • <strong>Gabriel KOUASSI</strong>
+            <strong>Nils HAMITOUCHE</strong> • <strong>Bruno N'KOMBO</strong> • <strong>Lithicia METAHRI</strong> • <strong>Lyana RAMANANARIVO</strong> • <strong>Idir SAID LHADJ</strong> • <strong>Gabriel KOUASSI</strong>
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 # CAHIER DES CHARGES — INFRASTRUCTURE IT, RÉSEAU & CYBERSÉCURITÉ
 
-**Client :** FA SAS (FrameAxis SAS) | **Prestataire :** Équipe IBN | **Version :** 1.0 (Document de travail)
+**Client :** FA SAS (FrameAxis SAS) | **Prestataire :** Équipe IBN | **Version :** 1.1 (Document de travail)
 
 ---
 
@@ -16,9 +16,9 @@
 | **Référent technique & Sécurité** | Nils HAMITOUCHE |
 | **Co-ref. Systèmes & Virtualisation** | Bruno N'KOMBO & Idir SAID LHADJ |
 | **Co-ref. Services & IPBX** | Lithicia METAHRI & Lyana RAMANANARIVO |
-| **Co-ref. Documentation & Recette** | Gabriel KOUASI OUIA & Lyana RAMANANARIVO |
+| **Co-ref. Documentation & Recette** | Gabriel KOUASSI & Lyana RAMANANARIVO |
 | **Périmètre global** | 3 bâtiments interconnectés par fibre optique, 120 utilisateurs (40/bâtiment), Cœur L3 redondé, Sécurité périmétrique Fortinet, Wi-Fi 6, Virtualisation Proxmox, IPBX & Sauvegardes |
-| **Version & Date** | Version 1.0 (Document de travail) — 9 novembre 2026 |
+| **Version & Date** | Version 1.1 (Document de travail) — 12 novembre 2026 |
 | **Statut du document** | Prévisionnel à valider avec le client et les devis fournisseurs |
 
 > *Document de cadrage fonctionnel et technique. Il définit les besoins, les contraintes, les exigences et les critères de recette. Les configurations détaillées des équipements seront décrites dans le futur DAT (Document d'Architecture Technique). Les références et montants budgétaires constituent des hypothèses de travail et non des devis fermes.*
@@ -33,6 +33,7 @@
 | :---: | :---: | :--- | :--- |
 | **0.1** | 09/11/2026 | Équipe IBN | Création de la trame et première estimation budgétaire. |
 | **1.0** | 09/11/2026 | Équipe IBN | Consolidation du périmètre, du dimensionnement matériel et validation de l'équipe. |
+| **1.1** | 12/11/2026 | Équipe IBN | Ajout du planning prévisionnel (12 semaines) et des jalons, alignés sur le Gantt ; ajout du risque sur les délais de livraison ; harmonisation des noms de l'équipe. |
 
 ### Validations attendues
 
@@ -327,8 +328,25 @@ Les montants ci-dessous constituent la base de dimensionnement prévisionnelle d
 Le projet se déroule en 8 phases successives :
 1. **Cadrage** $\rightarrow$ 2. **Conception (DAT)** $\rightarrow$ 3. **Approvisionnement** $\rightarrow$ 4. **Préparation en atelier** $\rightarrow$ 5. **Déploiement sur site** $\rightarrow$ 6. **Migration** $\rightarrow$ 7. **Recette technique** $\rightarrow$ 8. **Transfert d'exploitation**.
 
-### 11.2 Planning et Délais
-**Non spécifié dans les éléments fournis.** *(Les dates de démarrage, jalons et planning détaillé seront établis en concertation avec FA SAS lors de la validation du cahier des charges).*
+### 11.2 Planning prévisionnel et jalons
+Le projet est planifié sur **12 semaines (S1 à S12)**. Le détail des tâches et des responsables figure dans le **planning Gantt** du projet (`docs/planning/planning_gantt.html`). Les dates calendaires de démarrage seront fixées avec FA SAS lors de la validation du présent cahier des charges.
+
+| Phase | Semaines | Livrable ou jalon de fin de phase |
+| :--- | :---: | :--- |
+| **1. Cadrage** | S1 – S2 | ◆ **Jalon : validation du cahier des charges par FA SAS (fin S1)** |
+| **2. Conception (DAT)** | S2 – S4 | DAT, schémas physique et logique, plan d'adressage |
+| **3. Approvisionnement** | S3 – S4 | Références validées, commandes passées |
+| **4. Préparation en atelier** | S5 – S7 | Baies et câblage, équipements préconfigurés |
+| **5. Déploiement sur site** | S7 – S9 | Cœur, accès, FortiGate HA, Wi-Fi et services en place |
+| **6. Migration** | S9 – S10 | IPBX, supervision et utilisateurs raccordés |
+| **7. Recette technique** | S10 – S11 | ◆ **Jalon : signature du PV de recette (S11)** |
+| **8. Transfert d'exploitation** | S11 – S12 | DAT final, dossier d'exploitation, transfert de compétences |
+
+**Règles d'enchaînement :**
+* Aucune commande de matériel n'est passée avant la validation du cahier des charges par FA SAS.
+* Les commandes sont passées dès la validation des références (S3), afin de disposer d'au moins une semaine de délai de livraison avant la préparation en atelier (S5).
+* Le DAT est rédigé pendant la phase de Conception et sert de référence à la préparation et au déploiement. Il est mis à jour en fin de projet pour refléter l'installation réelle.
+* Le transfert d'exploitation ne démarre qu'après la signature du PV de recette.
 
 ### 11.3 Répartition des rôles et responsabilités (Équipe IBN)
 
@@ -339,7 +357,7 @@ Le projet se déroule en 8 phases successives :
 | **Lithicia METAHRI** | Référente Services Network & IPBX | Architecture des services réseau (DNS/DHCP), téléphonie IP (IPBX) et plateforme de supervision centralisée (Zabbix/PRTG). |
 | **Lyana RAMANANARIVO** | Co-référente Services, IPBX, Documentation & Recette | Appui aux services réseau/VoIP, co-élaboration des schémas d'architecture, dossier d'exploitation et déroulement du plan de tests. |
 | **Idir SAID LHADJ** | Co-référent en chef Systèmes & Virtualisation | Déploiement de l'hyperviseur Proxmox VE, Active Directory, serveurs physiques Dell R360 et stockage NAS Synology. |
-| **Gabriel KOUASI OUIA** | Référent Documentation & Recette | Élaboration des schémas réseau, constitution du dossier d'exploitation, exécution du plan de tests et rédaction du PV de recette. |
+| **Gabriel KOUASSI** | Référent Documentation & Recette | Élaboration des schémas réseau, constitution du dossier d'exploitation, exécution du plan de tests et rédaction du PV de recette. |
 
 ---
 
@@ -361,6 +379,8 @@ Chaque test sera consigné dans le PV de recette avec son statut, la preuve asso
 | **R-10** | Connexion VPN distant | Authentification réussie et accès strictement limité aux ressources permises. |
 | **R-11** | Sauvegarde et restauration | Données et machines virtuelles restaurées et contrôlées avec succès. |
 | **R-12** | Supervision d'un équipement en panne | Génération immédiate d'une alerte visible sur le tableau de bord. |
+
+> *Les tests de bascule (R-05 à R-08) provoquent volontairement des pannes. Ils sont réalisés hors des heures ouvrées de FA SAS, les utilisateurs étant déjà raccordés à ce stade du projet (S10).*
 
 ### Critères d'acceptation formels
 * $100\%$ des tests classés $P1$ doivent être validés avec succès ou faire l'objet d'une dérogation écrite.
@@ -391,6 +411,7 @@ Chaque test sera consigné dans le PV de recette avec son statut, la preuve asso
 | **Incertitude sur le nombre exact de prises et terminaux** | Sous/sur-dimensionnement des switches d'accès et du budget PoE+ | Réaliser un inventaire physique précis par bâtiment et par usage. |
 | **Absence d'étude Wi-Fi préalable sur site** | Couverture radio insuffisante ou zones d'ombre dans les bâtiments | Effectuer une étude de couverture et de densité radio sur site. |
 | **Variabilité des prix du matériel non contractuels** | Dépassement possible du budget prévisionnel | Obtenir 2 à 3 devis fermes auprès des revendeurs matériels. |
+| **Délais de livraison du matériel (switches, FortiGate, serveurs)** | Retard de la préparation en atelier et de tout le déploiement | Commander dès la validation des références (S3), suivre les livraisons et conserver une semaine de marge avant la préparation (S5). |
 | **Dépendance à un NAS local unique pour les sauvegardes** | Vulnérabilité aux pannes physiques ou aux attaques de ransomware | Mettre en place une copie externalisée chiffrée (règle 3-2-1). |
 | **Risque de boucle réseau / EtherChannel multi-châssis** | Instabilité du réseau LAN et perte de connectivité globale | Valider la configuration STP, LACP et les fonctionnalités des cœurs. |
 
