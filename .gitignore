@@ -1,0 +1,14 @@
+# ============ macOS ============
+# Fichiers de métadonnées créés par le Finder dans chaque dossier ouvert
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+
+# ============ Cisco Packet Tracer ============
+# Copies de secours créées automatiquement à chaque enregistrement
+*.pkt~
+*.pka~
+
+# ============ Éditeurs ============
+.vscode/

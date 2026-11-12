@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Planning Gantt - Projet Infrastructure FrameAxis SAS</title>
+<style>
+    @page { size: 297mm 210mm; margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+        margin: 0;
+        padding: 20px;
+        background-color: #f8fafc;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #1e293b;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    .header {
+        border-bottom: 3px solid #1a365d;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .header h1 {
+        margin: 0;
+        color: #1a365d;
+        font-size: 22pt;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+    }
+    .header h2 {
+        margin: 4px 0 0 0;
+        color: #64748b;
+        font-size: 11pt;
+        font-weight: 600;
+    }
+    .subtitle {
+        font-size: 9pt;
+        color: #64748b;
+        text-align: right;
+    }
+    .gantt-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8.5pt;
+    }
+    .gantt-table th, .gantt-table td {
+        border: 1px solid #e2e8f0;
+        padding: 6px 8px;
+        vertical-align: middle;
+    }
+    .gantt-table th {
+        background-color: #f1f5f9;
+        color: #1e293b;
+        font-weight: 700;
+        text-align: center;
+    }
+    .col-phase { width: 10%; font-weight: 700; color: #1a365d; }
+    .col-task { width: 32%; }
+    .col-resp { width: 22%; font-weight: 600; color: #334155; }
+    .col-week { width: 3%; text-align: center; }
+    
+    .bar {
+        height: 14px;
+        border-radius: 7px;
+        width: 100%;
+    }
+    .cadrage { background-color: #8b5cf6; }
+    .conception { background-color: #3b82f6; }
+    .approv { background-color: #06b6d4; }
+    .prep { background-color: #14b8a6; }
+    .deploy { background-color: #f59e0b; }
+    .migr { background-color: #ec4899; }
+    .recette { background-color: #a855f7; }
+    .transfert { background-color: #6366f1; }
+
+    .team-box {
+        margin-top: 20px;
+        padding: 12px 16px;
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e0;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .team-title {
+        font-weight: 800;
+        color: #1a365d;
+        font-size: 10pt;
+    }
+    .team-members {
+        font-size: 9pt;
+        color: #475569;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div>
+            <h1>PROJET ONE 2026-2027</h1>
+            <h2>PLANNING GANTT PRÉVISIONNEL</h2>
+        </div>
+        <div class="subtitle">
+            <strong>Durée :</strong> 12 Semaines<br>
+            <em>Dates exactes à valider avec le client</em>
+        </div>
+    </div>
+
+    <table class="gantt-table">
+        <thead>
+            <tr>
+                <th class="col-phase">Phase</th>
+                <th class="col-task">Description de la tâche</th>
+                <th class="col-resp">Responsables</th>
+                <th class="col-week">S1</th>
+                <th class="col-week">S2</th>
+                <th class="col-week">S3</th>
+                <th class="col-week">S4</th>
+                <th class="col-week">S5</th>
+                <th class="col-week">S6</th>
+                <th class="col-week">S7</th>
+                <th class="col-week">S8</th>
+                <th class="col-week">S9</th>
+                <th class="col-week">S10</th>
+                <th class="col-week">S11</th>
+                <th class="col-week">S12</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Cadrage -->
+            <tr>
+                <td class="col-phase" rowspan="3">Cadrage</td>
+                <td>Lancement, objectifs et périmètre</td>
+                <td class="col-resp">Bruno N'KOMBO • Nils HAMITOUCHE</td>
+                <td><div class="bar cadrage"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Recueil des besoins des 3 bâtiments</td>
+                <td class="col-resp">Bruno N'KOMBO • équipe IBN</td>
+                <td><div class="bar cadrage"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Inventaire de l'existant et analyse des risques</td>
+                <td class="col-resp">Nils HAMITOUCHE • Gabriel KOUASSI</td>
+                <td><div class="bar cadrage"></div></td>
+                <td><div class="bar cadrage"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+
+            <!-- Conception -->
+            <tr>
+                <td class="col-phase" rowspan="6">Conception</td>
+                <td>Architecture LAN/WAN et interconnexion fibre</td>
+                <td class="col-resp">Nils HAMITOUCHE • Bruno N'KOMBO</td>
+                <td></td>
+                <td><div class="bar conception"></div></td>
+                <td><div class="bar conception"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Plan VLAN, adressage IP, routage et HSRP</td>
+                <td class="col-resp">Nils HAMITOUCHE • Gabriel KOUASSI</td>
+                <td></td>
+                <td><div class="bar conception"></div></td>
+                <td><div class="bar conception"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Sécurité FortiGate HA, VPN et filtrage</td>
+                <td class="col-resp">Nils HAMITOUCHE • Bruno N'KOMBO</td>
+                <td></td><td></td>
+                <td><div class="bar conception"></div></td>
+                <td><div class="bar conception"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Systèmes, virtualisation, stockage et sauvegarde</td>
+                <td class="col-resp">Bruno N'KOMBO • Idir SAID LHADJ</td>
+                <td></td><td></td>
+                <td><div class="bar conception"></div></td>
+                <td><div class="bar conception"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>DNS/DHCP, IPBX et supervision</td>
+                <td class="col-resp">Lithicia METHARI • Lyana RAMANANARIVO • Idir SAID LHADJ</td>
+                <td></td><td></td>
+                <td><div class="bar conception"></div></td>
+                <td><div class="bar conception"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Schémas physique/logique et préparation DAT</td>
+                <td class="col-resp">Gabriel KOUASSI • Nils HAMITOUCHE • Lyana RAMANANARIVO</td>
+                <td></td><td></td>
+                <td><div class="bar conception"></div></td>
+                <td><div class="bar conception"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+
+            <!-- Approvisionnement -->
+            <tr>
+                <td class="col-phase" rowspan="2">Approvisionnement</td>
+                <td>Validation des références et choix matériel</td>
+                <td class="col-resp">Bruno N'KOMBO • Nils HAMITOUCHE • Idir SAID LHADJ</td>
+                <td></td><td></td><td></td>
+                <td><div class="bar approv"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Devis, commandes et suivi des livraisons</td>
+                <td class="col-resp">Bruno N'KOMBO • équipe IBN</td>
+                <td></td><td></td><td></td>
+                <td><div class="bar approv"></div></td>
+                <td><div class="bar approv"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+
+            <!-- Préparation -->
+            <tr>
+                <td class="col-phase" rowspan="4">Préparation</td>
+                <td>Baies, câblage Cat 6A et fibre OM4</td>
+                <td class="col-resp">Nils HAMITOUCHE • Bruno N'KOMBO</td>
+                <td></td><td></td><td></td><td></td>
+                <td><div class="bar prep"></div></td>
+                <td><div class="bar prep"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Préconfiguration switches, VLAN et redondance</td>
+                <td class="col-resp">Nils HAMITOUCHE • Gabriel KOUASSI</td>
+                <td></td><td></td><td></td><td></td>
+                <td><div class="bar prep"></div></td>
+                <td><div class="bar prep"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Préparation FortiGate, règles et VPN</td>
+                <td class="col-resp">Nils HAMITOUCHE • Bruno N'KOMBO</td>
+                <td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar prep"></div></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Installation Proxmox, serveurs et NAS</td>
+                <td class="col-resp">Idir SAID LHADJ • Bruno N'KOMBO</td>
+                <td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar prep"></div></td>
+                <td><div class="bar prep"></div></td>
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+
+            <!-- Déploiement -->
+            <tr>
+                <td class="col-phase" rowspan="5">Déploiement</td>
+                <td>Installation cœur réseau et switches d'accès</td>
+                <td class="col-resp">Nils HAMITOUCHE • Bruno N'KOMBO</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar deploy"></div></td>
+                <td><div class="bar deploy"></div></td>
+                <td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>VLAN, trunks, HSRP et routage</td>
+                <td class="col-resp">Nils HAMITOUCHE • Gabriel KOUASSI</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar deploy"></div></td>
+                <td><div class="bar deploy"></div></td>
+                <td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Déploiement FortiGate HA et sécurisation</td>
+                <td class="col-resp">Nils HAMITOUCHE • Bruno N'KOMBO</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar deploy"></div></td>
+                <td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Wi-Fi interne/invité et isolation</td>
+                <td class="col-resp">Nils HAMITOUCHE • Lithicia METHARI • Lyana RAMANANARIVO</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar deploy"></div></td>
+                <td><div class="bar deploy"></div></td>
+                <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>AD, DNS, DHCP, fichiers et virtualisation</td>
+                <td class="col-resp">Idir SAID LHADJ • Lithicia METHARI • Bruno N'KOMBO</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar deploy"></div></td>
+                <td><div class="bar deploy"></div></td>
+                <td></td><td></td><td></td>
+            </tr>
+
+            <!-- Migration -->
+            <tr>
+                <td class="col-phase" rowspan="2">Migration</td>
+                <td>IPBX et supervision centralisée</td>
+                <td class="col-resp">Lithicia METHARI • Lyana RAMANANARIVO • Idir SAID LHADJ</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar migr"></div></td>
+                <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Migration des services et raccordement utilisateurs</td>
+                <td class="col-resp">Nils HAMITOUCHE • Lithicia METHARI</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar migr"></div></td>
+                <td></td><td></td>
+            </tr>
+
+            <!-- Recette -->
+            <tr>
+                <td class="col-phase" rowspan="3">Recette</td>
+                <td>Tests DHCP, DNS, inter-VLAN et Wi-Fi invité</td>
+                <td class="col-resp">Gabriel KOUASSI • Lithicia METHARI • Lyana RAMANANARIVO</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar recette"></div></td>
+                <td></td><td></td>
+            </tr>
+            <tr>
+                <td>Tests HSRP, FortiGate HA, FAI et fibre</td>
+                <td class="col-resp">Nils HAMITOUCHE • Gabriel KOUASSI</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar recette"></div></td>
+                <td></td><td></td>
+            </tr>
+            <tr>
+                <td>Tests VPN, SSH, sauvegarde et supervision</td>
+                <td class="col-resp">Gabriel KOUASSI • Nils HAMITOUCHE • Idir SAID LHADJ • Lithicia METHARI</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar recette"></div></td>
+                <td></td>
+            </tr>
+
+            <!-- Transfert -->
+            <tr>
+                <td class="col-phase" rowspan="3">Transfert</td>
+                <td>DAT, schémas, inventaire et configurations</td>
+                <td class="col-resp">Gabriel KOUASSI • équipe IBN</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar transfert"></div></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Dossier d'exploitation et procédures</td>
+                <td class="col-resp">Gabriel KOUASSI • Nils HAMITOUCHE • Bruno N'KOMBO • Idir SAID LHADJ</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar transfert"></div></td>
+                <td><div class="bar transfert"></div></td>
+            </tr>
+            <tr>
+                <td>Transfert de compétences et clôture projet</td>
+                <td class="col-resp">Bruno N'KOMBO • Nils HAMITOUCHE • équipe IBN</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><div class="bar transfert"></div></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="team-box">
+        <div class="team-title">ÉQUIPE DE PROJET IBN :</div>
+        <div class="team-members">
+            <strong>Nils HAMITOUCHE</strong> • <strong>Bruno N'KOMBO</strong> • <strong>Lithicia METHARI</strong> • <strong>Lyana RAMANANARIVO</strong> • <strong>Idir SAID LHADJ</strong> • <strong>Gabriel KOUASSI</strong>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
